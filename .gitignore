@@ -1,0 +1,21 @@
+# Secrets — NEVER commit these
+.env
+*.key
+*.pem
+
+# OpenClaw state (persisted via Docker volume)
+openclaw-state/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Docker
+docker-compose.override.yml

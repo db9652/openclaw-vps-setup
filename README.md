@@ -29,11 +29,49 @@ Your Laptop                          Your VPS (Docker)
 
 ## Prerequisites
 
-| Requirement | Details |
-|---|---|
-| **VPS** | Ubuntu 22.04+ / 24.04+, 2+ GB RAM, public IP |
-| **API Keys** | Anthropic (required), OpenAI (for embeddings), Brave Search (optional) |
-| **Local** | Terminal with SSH access |
+### 🖥️ VPS / Machine Requirements
+
+| Component | Minimum | Recommended |
+|---|---|---|
+| **OS** | Ubuntu 22.04 LTS | Ubuntu 24.04 LTS |
+| **CPU** | 1 vCPU | 2 vCPU |
+| **RAM** | 1 GB (must add swap) | 2 GB+ |
+| **Disk** | 10 GB | 25 GB+ |
+| **Network** | Public IP + SSH access | Public IP + SSH access |
+| **Docker** | 20.10+ | Latest stable |
+| **Node.js** | v22+ (auto-installed in container) | v22+ |
+
+> ⚠️ **Running on 1 GB RAM?** Add swap first:
+> ```bash
+> sudo fallocate -l 1G /swapfile
+> sudo chmod 600 /swapfile
+> sudo mkswap /swapfile
+> sudo swapon /swapfile
+> echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+> ```
+
+### 💰 Budget VPS Options
+
+| Provider | Plan | RAM | Cost | Notes |
+|---|---|---|---|---|
+| [Hetzner](https://hetzner.com) | CX22 | 4 GB | ~€4/mo | Best value |
+| [Contabo](https://contabo.com) | Cloud S | 8 GB | ~€5/mo | Most RAM per dollar |
+| [DigitalOcean](https://digitalocean.com) | Basic | 2 GB | $12/mo | Easiest for beginners |
+| [Vultr](https://vultr.com) | Cloud Compute | 2 GB | $12/mo | Many regions |
+| [Oracle Cloud](https://cloud.oracle.com) | Free Tier | 1 GB | **Free** | Always-free tier (add swap) |
+
+### 🔑 API Keys
+
+| Key | Required? | Where to get it |
+|---|---|---|
+| **Anthropic** | ✅ Required | [console.anthropic.com](https://console.anthropic.com) |
+| **OpenAI** | ⚡ Recommended | [platform.openai.com](https://platform.openai.com) — for memory search embeddings (~$0.02/1M tokens) |
+| **Brave Search** | Optional | [brave.com/search/api](https://brave.com/search/api/) — free tier: 2,000 queries/month |
+
+### 💻 Your Local Machine
+
+- Any OS with a terminal + SSH client (Mac, Windows, Linux)
+- A browser to access the Control UI
 
 ## Quick Start
 

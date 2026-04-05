@@ -96,11 +96,19 @@ Then ask it to interview you and build out your workspace files.
 openclaw-vps-setup/
 ├── Dockerfile                 # OpenClaw container image
 ├── docker-compose.yml         # Production deployment config
+├── Makefile                   # Common commands (make start, make logs, etc.)
 ├── .env.example               # Environment variables template
 ├── .gitignore                 # Keeps secrets out of git
+├── LICENSE                    # MIT
+├── CONTRIBUTING.md            # How to contribute
+├── SECURITY.md                # Security policy + design principles
 ├── scripts/
 │   ├── entrypoint.sh          # Container startup script
 │   └── setup-host.sh          # VPS hardening (run once)
+├── docs/
+│   ├── CHANNELS.md            # Detailed channel setup (Telegram/WhatsApp/Slack/Discord)
+│   ├── COST-GUIDE.md          # Real costs vs the $6,000 myth
+│   └── TROUBLESHOOTING.md     # Common problems + fixes
 ├── workspace-templates/       # Default workspace files
 │   ├── AGENTS.md
 │   ├── SOUL.md
@@ -109,7 +117,8 @@ openclaw-vps-setup/
 │   ├── LEARNINGS.md
 │   ├── MEMORY.md
 │   └── HEARTBEAT.md
-└── README.md
+└── .github/
+    └── ISSUE_TEMPLATE/        # Bug report + feature request templates
 ```
 
 ## Channel Setup
@@ -187,25 +196,34 @@ Run security audits regularly:
 docker compose exec openclaw openclaw security audit --deep
 ```
 
+## Quick Commands (Makefile)
+
+```bash
+make setup        # First-time: copy .env + build
+make start        # Start the Gateway
+make stop         # Stop the Gateway
+make restart      # Restart
+make logs         # Tail logs
+make status       # Check Gateway status
+make health       # Health check
+make audit        # Security audit (deep)
+make update       # Update OpenClaw + restart
+make backup       # Create backup
+make shell        # Open shell inside container
+make doctor       # Run diagnostics
+make token        # Show Gateway auth token
+make tunnel-hint  # Print SSH tunnel command
+```
+
 ## Maintenance
 
 ```bash
-# Update OpenClaw
+# Or without Make:
 docker compose exec openclaw openclaw update
-docker compose restart
-
-# Check health
 docker compose exec openclaw openclaw status
 docker compose exec openclaw openclaw doctor
-
-# View logs
-docker compose logs -f openclaw
-
-# Backup
-docker compose exec openclaw openclaw backup create
-
-# Weekly security audit
 docker compose exec openclaw openclaw security audit --deep
+docker compose exec openclaw openclaw backup create
 ```
 
 ## Cost Optimization
@@ -230,6 +248,14 @@ docker compose exec openclaw openclaw security audit --deep
 | Agent forgot something | Enable memory flush, ask agent to write to MEMORY.md |
 | Container won't start | `docker compose logs openclaw` for errors |
 | Telegram not connecting | Verify bot token in .env, restart container |
+
+## 📖 Documentation
+
+- **[Channel Setup Guide](docs/CHANNELS.md)** — Detailed Telegram, WhatsApp, Slack, Discord setup
+- **[Cost Guide](docs/COST-GUIDE.md)** — Real costs vs the $6,000 myth
+- **[Troubleshooting](docs/TROUBLESHOOTING.md)** — Common problems + fixes
+- **[Contributing](CONTRIBUTING.md)** — How to contribute
+- **[Security Policy](SECURITY.md)** — Security design + reporting vulnerabilities
 
 ## Credits
 
